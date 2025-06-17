@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const portada =
         album.imagenes && album.imagenes.length
           ? album.imagenes[0].url_archivo
-          : '/assets/default-profile.png';
+          : '/assets/albumvacio-default.png';
 
       const imagenesHTML = (album.imagenes || [])
         .map(
