@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     function conectar() {
-      const socket = io();
+      const socket = connectSocket();
       socket.emit('registrar', usuario.id);
       socket.on('notificacion', () => {
         actualizar(conteo + 1);

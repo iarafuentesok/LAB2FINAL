@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   const lista = document.getElementById('listaNotificaciones');
-  const socket = io();
+  const socket = connectSocket();
   socket.emit('registrar', usuario.id);
 
   let contador = 0;
