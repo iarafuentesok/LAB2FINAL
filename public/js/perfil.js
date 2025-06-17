@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   try {
     // Obtener datos del perfil
-    const res = await fetch(`http://localhost:3000/api/usuarios/${idPerfil}`);
+    const res = await fetch(`/api/usuarios/${idPerfil}`);
     const perfil = await res.json();
 
     if (!perfil) {
@@ -57,7 +57,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const galeria = document.getElementById('galeriaObras');
     galeria.innerHTML = '';
 
-    const resImgs = await fetch(`http://localhost:3000/api/imagenes/usuario/${idPerfil}`);
+    const resImgs = await fetch(`/api/imagenes/usuario/${idPerfil}`);
+
     const imagenes = await resImgs.json();
 
     const visibles = imagenes
@@ -90,7 +91,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const albumesContenedor = document.getElementById('listaAlbumes');
     albumesContenedor.innerHTML = '';
 
-    const resAlbumes = await fetch(`http://localhost:3000/api/albumes/usuario/${idPerfil}`);
+    const resAlbumes = await fetch(`/api/albumes/usuario/${idPerfil}`);
     const albumes = await resAlbumes.json();
 
     if (albumes.length === 0) {
