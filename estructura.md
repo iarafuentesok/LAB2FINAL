@@ -39,6 +39,7 @@
         └── amigos.html
         └── 📁assets
             └── default-profile.png
+            └── albumvacio-default.png
         └── 📁css
             └── styles.css
         └── editar-perfil.html
