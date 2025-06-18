@@ -1,3 +1,4 @@
+// Página de inicio pública
 async function obtenerUsuario() {
   try {
     const res = await fetch('/api/usuarios/me');

@@ -1,3 +1,4 @@
+// Registro de nuevos usuarios
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('registroForm');
   const mensaje = document.getElementById('mensajeRegistro');
@@ -17,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
+      // Envío de datos de registro al servidor
       const response = await fetch('/api/usuarios/registro', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -29,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         mensaje.style.color = 'green';
         mensaje.textContent = '✅ Registro exitoso. Redirigiendo...';
         form.reset();
+        // Tras registro exitoso volvemos al inicio de sesión
         setTimeout(() => {
           window.location.href = 'login.html';
         }, 2000);

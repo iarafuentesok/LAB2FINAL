@@ -1,3 +1,4 @@
+// Muestra en la página principal las obras públicas de todos los usuarios
 async function obtenerUsuario() {
   try {
     const res = await fetch('/api/usuarios/me');
@@ -13,6 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const usuario = await obtenerUsuario();
 
   try {
+    // Solicitar obras públicas al backend
     const res = await fetch('/api/imagenes/publicas');
     const imagenes = await res.json();
     if (imagenes.length === 0) {
@@ -20,6 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       return;
     }
 
+    // Generar tarjeta para cada obra obtenida
     imagenes.forEach((obra) => {
       const div = document.createElement('div');
       div.classList.add('obra-publica');

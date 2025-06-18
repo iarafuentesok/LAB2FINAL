@@ -1,3 +1,4 @@
+// Barra de navegación dinámica según la sesión
 async function obtenerUsuario() {
   try {
     const res = await fetch('/api/usuarios/me');
@@ -10,7 +11,7 @@ async function obtenerUsuario() {
 
 document.addEventListener('DOMContentLoaded', async () => {
   const nav = document.getElementById('navPublico');
-  const usuario = await obtenerUsuario();
+  const usuario = await obtenerUsuario(); // usuario actual si existe
   const ruta = window.location.pathname;
 
   if (!nav) return;
@@ -61,6 +62,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
+  // Manejo de notificaciones en la barra
   function initNotificaciones() {
     const badge = document.getElementById('notifCounter');
     if (!badge) return;

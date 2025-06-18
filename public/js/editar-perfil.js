@@ -1,3 +1,4 @@
+// Lógica de edición de perfil y cambio de contraseña
 async function obtenerUsuario() {
   try {
     const res = await fetch('/api/usuarios/me');
@@ -17,6 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const checkboxVitrina = document.getElementById('modoVitrina');
 
   const usuario = await obtenerUsuario();
+  // Requiere sesión activa para editar
   if (!usuario) {
     window.location.href = 'login.html';
     return;
@@ -35,6 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.error('Error al cargar perfil', err);
   }
 
+  // Guardar datos básicos del perfil
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -63,6 +66,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     setTimeout(() => (mensaje.textContent = ''), 3000);
   });
 
+  // Cambiar la contraseña actual
   passwordForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const actual = document.getElementById('passwordActual').value;

@@ -1,3 +1,4 @@
+// Feed principal con obras de amigos
 async function obtenerUsuario() {
   try {
     const res = await fetch('/api/usuarios/me');
@@ -11,6 +12,7 @@ async function obtenerUsuario() {
 document.addEventListener('DOMContentLoaded', async () => {
   const feed = document.getElementById('feed');
   const usuario = await obtenerUsuario();
+  // Solo usuarios registrados pueden ver el feed
   if (!usuario) {
     window.location.href = 'login.html';
     return;
@@ -49,7 +51,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       return;
     }
 
+    // Ordenar publicaciones por fecha descendente
     publicaciones.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+    // Crear elementos HTML para cada publicación
     publicaciones.forEach((pub) => {
       const fechaFormateada = new Date(pub.fecha).toLocaleDateString('es-AR', {
         day: 'numeric',

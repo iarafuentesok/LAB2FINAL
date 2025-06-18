@@ -1,3 +1,4 @@
+// Vista de perfil de usuario
 async function obtenerUsuario() {
   try {
     const res = await fetch('/api/usuarios/me');
@@ -14,6 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const imagenParam = params.get('img');
   const visitante = await obtenerUsuario();
 
+  // Requiere login para acceder al perfil
   if (!visitante) {
     window.location.href = 'login.html';
     return;
@@ -143,6 +145,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // LIGHTBOX
     let imagenActual = null;
 
+    // Descarga y muestra los comentarios de la imagen seleccionada
     async function cargarComentarios(idImagen) {
       try {
         const res = await fetch(`/api/comentarios/imagen/${idImagen}`);
@@ -239,6 +242,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
+// Determina si el visitante tiene permiso para ver la imagen
 function puedeVerImagen(imagen, visitanteId, esMiPerfil) {
   if (esMiPerfil) return true;
   if (imagen.visibilidad === 'publica') return true;

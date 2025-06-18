@@ -1,3 +1,4 @@
+// Gestión de notificaciones en tiempo real
 async function obtenerUsuarioActual() {
   try {
     const res = await fetch('/api/usuarios/me');
@@ -10,6 +11,7 @@ async function obtenerUsuarioActual() {
 
 document.addEventListener('DOMContentLoaded', async () => {
   const usuario = await obtenerUsuarioActual();
+  // Sin autenticación no hay notificaciones
   if (!usuario) {
     window.location.href = 'login.html';
     return;
@@ -21,6 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   let contador = 0;
 
+  // Mostrar en tiempo real cualquier notificación entrante
   socket.on('notificacion', (notif) => {
     mostrarNotificacion(notif);
     if (window.actualizarNotifCounter) {
@@ -28,6 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
+  // Carga inicial de notificaciones guardadas
   async function cargar() {
     const res = await fetch(`/api/notificaciones/${usuario.id}`);
     const datos = await res.json();
@@ -39,6 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
+  // Marca una notificación como leída en el servidor
   async function marcarLeida(id) {
     await fetch(`/api/notificaciones/${id}/leida`, { method: 'POST' });
     if (contador > 0) {
@@ -49,6 +54,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
+  // Construye la notificación en la lista
   function mostrarNotificacion(n) {
     const li = document.createElement('li');
     li.textContent = n.mensaje;

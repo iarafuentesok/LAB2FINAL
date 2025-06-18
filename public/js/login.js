@@ -1,7 +1,9 @@
+// Maneja el inicio de sesión de usuarios
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('loginForm');
   const errorDisplay = document.getElementById('loginError');
 
+  // Envío de credenciales al backend
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -22,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
+      // Sesión iniciada correctamente
       window.location.href = 'perfil.html';
     } catch (error) {
       console.error('Error:', error);
