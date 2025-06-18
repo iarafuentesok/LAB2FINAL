@@ -1,3 +1,4 @@
+// Funciones para gestionar solicitudes y lista de amigos
 async function obtenerUsuario() {
   try {
     const res = await fetch('/api/usuarios/me');
@@ -10,6 +11,7 @@ async function obtenerUsuario() {
 
 document.addEventListener('DOMContentLoaded', async () => {
   const usuario = await obtenerUsuario();
+  // Sin usuario autenticado no se puede continuar
   if (!usuario) {
     window.location.href = 'login.html';
     return;
@@ -19,6 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const solicitudesRecibidas = document.getElementById('solicitudesRecibidas');
   const listaAmigos = document.getElementById('listaAmigos');
   const imagenesAmigos = document.getElementById('imagenesAmigos');
+  // Lista las solicitudes de amistad pendientes
   async function cargarSolicitudes() {
     try {
       const res = await fetch(`/api/amistad/pendientes/${usuario.id}`);
@@ -33,6 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       console.error('Error al cargar solicitudes', err);
     }
   }
+  // Carga amigos actuales y muestra algunas de sus imágenes públicas
   async function cargarAmigos() {
     try {
       const res = await fetch(`/api/amistad/amigos/${usuario.id}`);
@@ -60,6 +64,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
+  // Acciones para aceptar o rechazar una solicitud
   solicitudesRecibidas.addEventListener('click', async (e) => {
     if (e.target.tagName !== 'BUTTON') return;
     const id = e.target.dataset.id;
@@ -72,6 +77,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     cargarSolicitudes();
   });
 
+  // Búsqueda de nuevos usuarios a añadir
   document.getElementById('buscarBtn').addEventListener('click', async () => {
     const texto = document.getElementById('busqueda').value.trim();
     if (!texto) return;
@@ -107,6 +113,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
+  // Enviar solicitud al hacer clic en el resultado
   resultadosBusqueda.addEventListener('click', async (e) => {
     if (e.target.id !== 'solicitarBtn') return;
     const dest = e.target.parentElement.dataset.dest;
@@ -119,6 +126,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     e.target.textContent = 'Enviada';
   });
 
+  // Permite eliminar un amigo existente
   listaAmigos.addEventListener('click', async (e) => {
     if (!e.target.classList.contains('eliminar-amigo')) return;
     const id = e.target.dataset.id;
@@ -126,6 +134,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     cargarAmigos();
   });
 
+  // Carga inicial de datos
   cargarSolicitudes();
   cargarAmigos();
 });

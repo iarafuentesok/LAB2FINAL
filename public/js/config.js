@@ -1,3 +1,4 @@
+// Configuración global de URL base y conexión de sockets
 const API_BASE_URL = 'https://lab2final-m22q.onrender.com';
 
 const originalFetch = window.fetch;

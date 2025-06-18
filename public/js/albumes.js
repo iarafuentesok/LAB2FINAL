@@ -1,3 +1,4 @@
+// Manejo de álbumes e imágenes del usuario autenticado
 async function obtenerUsuario() {
   try {
     const res = await fetch('/api/usuarios/me');
@@ -10,6 +11,7 @@ async function obtenerUsuario() {
 
 document.addEventListener('DOMContentLoaded', async () => {
   const usuario = await obtenerUsuario();
+  // Si no hay sesión activa, redirigimos al formulario de login
   if (!usuario) {
     window.location.href = 'login.html';
     return;
@@ -25,6 +27,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   let albumes = [];
   let amigos = [];
 
+  // Obtiene la lista de amigos para permitir imágenes compartidas
   async function cargarAmigos() {
     try {
       const res = await fetch(`/api/amistad/amigos/${usuario.id}`);
@@ -35,6 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
+  // Consulta los álbumes en el backend y luego los dibuja en pantalla
   async function cargarAlbumes() {
     try {
       const res = await fetch(`/api/albumes/usuario/${usuario.id}`);
@@ -45,12 +49,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
+  // Dibuja en el DOM cada álbum y sus imágenes
   function renderAlbumes() {
     listaAlbumes.innerHTML = '';
     const opcionesAmigos = amigos
       .map((a) => `<option value="${a.id}">${a.nombre}</option>`)
       .join('');
 
+    // Crear tarjeta visual para cada álbum
     albumes.forEach((album) => {
       const div = document.createElement('div');
       div.classList.add('album-card');
@@ -271,6 +277,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
+  // Envío del formulario para crear un nuevo álbum
   crearAlbumForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const titulo = document.getElementById('tituloAlbum').value.trim();
@@ -290,6 +297,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     setTimeout(() => (mensajeAlbum.textContent = ''), 3000);
   });
 
+  // Cargar datos iniciales
   await cargarAmigos();
   await cargarAlbumes();
 });
